@@ -6,7 +6,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   TableHead,
   TableRow,
   Paper,
@@ -28,16 +27,24 @@ const useStyles = makeStyles({
   TableRow: {
     backgroundColor: "rgb(245,245,245)",
     color: "rgb(84,84,84)"
+  },
+  lastCell: {
+    color: "grey"
+  },
+  line: {
+    borderLeft: "1px solid red",
+    paddingLeft: "15px"
   }
 });
 
-const StyledHeaderCell = withStyles(() => ({
+const StyledCell = withStyles(() => ({
   head: {
     backgroundColor: "rgb(245,245,245)",
     color: "rgb(84, 84, 84)"
   },
   body: {
-    fontSize: 20
+    fontSize: 15,
+    color: "grey"
   }
 }))(TableCell);
 
@@ -71,10 +78,10 @@ function App() {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <StyledHeaderCell>Type</StyledHeaderCell>
-              <StyledHeaderCell>Title</StyledHeaderCell>
-              <StyledHeaderCell>Company</StyledHeaderCell>
-              <StyledHeaderCell>Location</StyledHeaderCell>
+              <StyledCell>Type</StyledCell>
+              <StyledCell>Title</StyledCell>
+              <StyledCell>Company</StyledCell>
+              <StyledCell>Location</StyledCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -82,13 +89,15 @@ function App() {
               ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : rows
             ).map(row => (
-              <TableRow key={row.id} hover>
+              <TableRow className={classes.TableRow} key={row.id} hover>
                 <TableCell component="th" scope="row">
                   {row.type}
                 </TableCell>
                 <TableCell align="left">{row.title}</TableCell>
                 <TableCell align="left">{row.company}</TableCell>
-                <TableCell align="left">{row.location}</TableCell>
+                <TableCell className={classes.lastCell} align="left">
+                  <div className={classes.line}> {row.location} </div>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
